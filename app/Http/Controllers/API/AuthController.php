@@ -4,7 +4,6 @@ namespace App\Http\Controllers\API;
 
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Auth\LoginUserRequest;
-use App\Http\Requests\Auth\LogoutUserRequest;
 use App\Http\Requests\Auth\RegisterUserRequest;
 use App\Http\Resources\Auth\RegisterUserResource;
 use App\Services\User\UserService;
@@ -69,12 +68,10 @@ class AuthController extends Controller
         return response()->json(new RegisterUserResource($user), 200);
     }
 
-    public function logout(LogoutUserRequest $request): \Illuminate\Http\JsonResponse
+    public function logout(): \Illuminate\Http\JsonResponse
     {
-        $user = $this->userService->index()
-            ->where('email', $request->email)
-            ->first();
-        $token= $user ? $user->tokens()->first() : null;
+        $user = Auth::user();
+        $token= $user->tokens()->first();
         if ($token) {
             $token->delete();
 
