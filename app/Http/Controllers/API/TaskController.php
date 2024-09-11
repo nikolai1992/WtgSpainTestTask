@@ -41,9 +41,8 @@ class TaskController extends Controller
 
 	public function show(int $id)
 	{
-        $task = $this->taskRepository->getById($id)->get();
-
-        return TasksResource::collection($task);
+        $task = collect($this->taskRepository->getById($id)->first());
+        return response()->json(['data' => $task], 200);
 	}
 
 	public function update(TaskUpdateRequest $request, int $id)
