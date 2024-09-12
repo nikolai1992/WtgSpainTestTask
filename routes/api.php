@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\API\CommentController;
 use App\Http\Controllers\API\TeamController;
+use App\Http\Controllers\API\UserController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Api\AuthController;
 use App\Http\Controllers\Api\TaskController;
@@ -34,6 +35,8 @@ Route::group([
     Route::post('/teams', [TeamController::class, 'store']);
     Route::post('/teams/{teamId}/users', [TeamController::class, 'addUserIntoTeam']);
     Route::delete('/teams/{teamId}/users/{userId}', [TeamController::class, 'removeUserFromTeam']);
+
+    Route::get('/users', [UserController::class, 'index']);
 });
 
 Route::post('/login', [AuthController::class, 'login']);

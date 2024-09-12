@@ -38,9 +38,9 @@ class TeamController extends Controller
 
     public function addUserIntoTeam(TeamAddUserIntoTeamRequest $request, int $teamId)
     {
-        $team = $this->teamRepository->getById($teamId)->firstOrFail();
-        $user = $this->userService->getById($request->user_id)->first();
-        $user->teams()->attach($team);
+        $team = $this->teamRepository->getById($teamId) ;
+        $user = $this->userService->getById($request->user_id);
+        $user->teams()->sync($team);
 
         $response = $this->prepareSuccessfulResponse('User was added into team successfully.');
 
@@ -49,8 +49,8 @@ class TeamController extends Controller
 
     public function removeUserFromTeam(int $teamId, int $userId)
     {
-        $team = $this->teamRepository->getById($teamId)->firstOrFail();
-        $user = $this->userService->getById($userId)->firstOrFail();
+        $team = $this->teamRepository->getById($teamId);
+        $user = $this->userService->getById($userId);
         $user->teams()->detach($team);
 
         $response = $this->prepareSuccessfulResponse('User was removed from team successfully.');

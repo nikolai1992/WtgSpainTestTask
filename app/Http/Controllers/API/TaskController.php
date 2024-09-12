@@ -41,7 +41,7 @@ class TaskController extends Controller
 
 	public function show(int $id)
 	{
-        $task = collect($this->taskRepository->getById($id)->first());
+        $task = collect($this->taskRepository->getById($id));
         return response()->json(['data' => $task], 200);
 	}
 
