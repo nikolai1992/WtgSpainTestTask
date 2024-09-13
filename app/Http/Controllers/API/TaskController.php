@@ -75,7 +75,7 @@ class TaskController extends Controller
 
     public function showComments(int $taskId)
     {
-        $task = $this->taskRepository->getById($taskId)->firstOrFail();
+        $task = $this->taskRepository->getById($taskId);
         $comments = $task->comments;
 
         return CommentsResource::collection($comments);
